@@ -1,0 +1,50 @@
+<html>
+    <head>
+        <!-- import js davinci api 
+          https://apidocs.contactcanvas.com/index.html
+          https://apidocs.contactcanvas.com/modules/davinci_api.html
+          https://www.npmjs.com/package/@amc-technology/davinci-api?activeTab=versions
+        -->
+        <script src="davinci-api-1-0-46.js"></script> 
+        <title>App</title>
+
+		<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+		<script>
+			var logger = new amcTechnologydavinciApi.Logger('SampleApp'); // initializes logger function
+			
+			//Registering for intercepting Presence Change
+			amcTechnologydavinciApi.registerOnPresenceChanged(onPresenceUpdate);
+			
+			function onPresenceUpdate(presence, reason, initiatingApp) {
+				console.log(presence);
+				// If the presence parameter is anything except "Pending" that means the agent is loggedin.
+				// This handler would be called whenever there is a change in presence. When you receive, the non-pending presence for the first time, thats when the agent is logged in.
+				return Promise.resolve();
+			}
+			
+			amcTechnologydavinciApi.registerOnLogout(onLogout);
+			
+			function onLogout(reason) {
+				console.log(reason);
+				// This handler would be called when the agent is logged out.
+				return Promise.resolve();
+			}
+			/*
+			 * This application initializes the app then formats and loads the bridge script(s)
+			 */
+			amcTechnologydavinciApi.initializeComplete(logger).then(function (config) {
+				
+				//applicationUrl = config.variables.URL; // save app url from contact canvas
+				amcTechnologydavinciApi.setAppHeight(0);
+				//$('#ApplicationFrame').attr('src', applicationUrl);
+			});
+			
+		</script>
+    </head>
+    <body style="width: 100%; height: 100%; margin: 0px; border: 0px;">
+        <!-- this header just confirms that the page is online -->
+        <div>
+             <p> Sample DaVinci App</p> 
+        </div>
+    </body>
+</html>
