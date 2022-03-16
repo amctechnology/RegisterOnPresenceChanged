@@ -29,6 +29,12 @@
 				// This handler would be called when the agent is logged out.
 				return Promise.resolve();
 			}
+
+			amcTechnologydavinciApi.registerSetSupportedChannels(onSetSupportedChannels);
+
+			function onSetSupportedChannels(appName, channels){
+				return Promise.resolve();
+			}
 			/*
 			 * This application initializes the app then formats and loads the bridge script(s)
 			 */
